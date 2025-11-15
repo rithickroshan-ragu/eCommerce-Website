@@ -37,3 +37,14 @@ class Product(AuditData):
             )
         ]
 
+
+class ProductDescription(AuditData):
+    product = models.OneToOneField(Product, on_delete=models.CASCADE, related_name="description")
+    description = models.TextField()
+    slug = models.SlugField(max_length=255, unique=True)
+
+
+class Order(AuditData):
+    product = models.ManyToManyField(Product, related_name="products")
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+
